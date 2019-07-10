@@ -30,7 +30,7 @@ J = 1 / m * ( - ((y'    ) * log(    hThetaX))
 
 % return grad
 
-grad = 1 / m * X' * (X * theta - y);
+grad = 1 / m * X' * (hThetaX - y);
 
 
 
