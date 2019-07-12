@@ -21,11 +21,15 @@ X = [ones(m, 1) X];
 % Instructions: You should complete the following code to train num_labels
 %               logistic regression classifiers with regularization
 %               parameter lambda. 
+% 説明書: 正則化パラメータlambdaを使用してnum_labelsロジスティック回帰分類器を学習させるには、
+%        次のコードを完成させる必要があります。
 %
 % Hint: theta(:) will return a column vector.
+% ヒント: theta(:) は column vectorを返します。
 %
 % Hint: You can use y == c to obtain a vector of 1's and 0's that tell you
 %       whether the ground truth is true/false for this class.
+% ヒント: y == c を使用して、このクラスの基本的な真理がtrue / falseであるかどうかを示す1と0のベクトルを取得できます。
 %
 % Note: For this assignment, we recommend using fmincg to optimize the cost
 %       function. It is okay to use a for-loop (for c = 1:num_labels) to
@@ -33,6 +37,10 @@ X = [ones(m, 1) X];
 %
 %       fmincg works similarly to fminunc, but is more efficient when we
 %       are dealing with large number of parameters.
+% 注: この割り当てでは、コスト関数を最適化するためにfmincgを使用することをお勧めします。
+%     異なるクラスをループするためにforループ（for c = 1：num_labels）を使っても大丈夫です。
+%
+%     fmincgはfminuncと同様に機能しますが、多数のパラメータを扱う場合はより効率的です。
 %
 % Example Code for fmincg:
 %
@@ -49,13 +57,22 @@ X = [ones(m, 1) X];
 %                 initial_theta, options);
 %
 
+% Set Initial theta
+initial_theta = zeros(n + 1, 1);
+
+% Set options for fminunc
+options = optimset('GradObj', 'on', 'MaxIter', 50);
 
 
+%  oneVsAll(X, y, num_labels, lambda)
 
-
-
-
-
+for c = 1:num_labels
+  [theta] = ...
+    fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
+                 initial_theta, options);
+  
+  all_theta(c, :) = theta;
+endfor
 
 
 
