@@ -35,8 +35,8 @@ X = [ones(m, 1) X];
 % input("size all_theta");
 
 
-A = (X * all_theta');
-% A = sigmoid(X * all_theta');
+% A = (X * all_theta');
+A = sigmoid(X * all_theta');
 % A
 % input("A");
 [x, ix] = max(A, [], 2);
