@@ -71,18 +71,12 @@ for rowIndex = 1:m
   % input("a3"); 
 
   yi = y(rowIndex);
-  if yi == 0
-    yi = 10;
-  endif
 
-  for ki = 1:num_labels
+  vy = labelAsVector(yi, num_labels);
 
-    a3 = cost(yi == ki, x', Theta1, Theta2);
-    % a3
-    % a3ki = a3(ki)
-    % input("a3");
-    s += a3(ki);
-  endfor
+  a3 = cost(vy, x', Theta1, Theta2);
+  s += a3;
+
 endfor
 
 J = s / m;
