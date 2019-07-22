@@ -1,4 +1,4 @@
-function [a1, z2, a2, z3, a3] = costStep(y, x, theta1, theta2)
+function [a1, z2, a2, z3, a3] = myCostStep(y, x, theta1, theta2)
 
 % size(x) % => 1, 400
 % input("size of x");

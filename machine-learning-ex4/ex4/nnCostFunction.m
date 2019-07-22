@@ -74,7 +74,7 @@ for rowIndex = 1:m
 
   vy = labelAsVector(yi, num_labels);
 
-  a3 = cost(vy, x', Theta1, Theta2);
+  a3 = myCost(vy, x', Theta1, Theta2);
   s += a3;
 
 endfor
@@ -99,45 +99,24 @@ J = (s / m) + (lambda / (2 * m) * r);
 %               first time.
 %
 
-Delta = zeros(3, 1);
-
 for t = 1:m
   x = X(t, :);
-  yi = y(rowIndex);
+  yi = y(t);
 
   vy = labelAsVector(yi, num_labels);
 
   % Step 1
-  [a1, z2, a2, z3, a3] = costStep(vy, x', Theta1, Theta2);
-
-  % a1 = x'
-  % size_a3 = size(a3)
-  % size_vy = size(vy)
+  [a1, z2, a2, z3, a3] = myCostStep(vy, x', Theta1, Theta2);
 
   % Step 2
   delta3 = a3 - vy';
-  % delta3
-  % input("delta 3")
-  % size_delta3 = size(delta3)
-  % input("size a3");
 
   % Step 3
-  % size(Theta2')
-  % sg2 = sigmoidGradient(z2);
   sg2 = [1; sigmoidGradient(z2)];
-  % size(sg2)
-  % sz_Theta2 = size(Theta2)
-  % sz_delta3 = size(delta3)
-  % sz_sg2 = size(sg2)
-  % input("size all");
-  delta2 = Theta2' * delta3 .* sg2;
-  % delta2
-  % input("delta 2")
-  % size(delta2)
-  %input("delta2");
+  delta2 = (Theta2' * delta3) .* sg2;
 
-  % dt2a1 = delta2(2:end) * a1'
-  % input("dt2a1");
+  % Step 4
+
   Theta1_grad += delta2(2:end) * a1';
   Theta2_grad += delta3 * a2';
   
