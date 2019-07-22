@@ -59,29 +59,17 @@ Theta2_grad = zeros(size(Theta2));
 
 s = 0;
 
-for rowIndex = 1:m
-  x = X(rowIndex, :);
-  % size(x) % => 1, 400
-  % input("size of x");
-  % y
-  % input("y");
-  %a3 = cost(y(rowIndex), x', Theta1, Theta2);
-  % a3
-  % size(a3) % => 10, 1
-  % input("a3"); 
-
-  yi = y(rowIndex);
+for t = 1:m
+  x = X(t, :);
+  yi = y(t);
 
   vy = labelAsVector(yi, num_labels);
 
-  a3 = myCost(vy, x', Theta1, Theta2);
-  s += a3;
+  % Step 1
+  [a1, z2, a2, z3, a3] = myCostStep(vy, x', Theta1, Theta2);
+  s += myCost(a3, vy);
 
-endfor
 
-r = regularizedThetas(Theta1, Theta2);
-
-J = (s / m) + (lambda / (2 * m) * r);
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
@@ -99,14 +87,7 @@ J = (s / m) + (lambda / (2 * m) * r);
 %               first time.
 %
 
-for t = 1:m
-  x = X(t, :);
-  yi = y(t);
 
-  vy = labelAsVector(yi, num_labels);
-
-  % Step 1
-  [a1, z2, a2, z3, a3] = myCostStep(vy, x', Theta1, Theta2);
 
   % Step 2
   delta3 = a3 - vy';
@@ -121,6 +102,10 @@ for t = 1:m
   Theta2_grad += delta3 * a2';
   
 endfor
+
+r = regularizedThetas(Theta1, Theta2);
+
+J = (s / m) + (lambda / (2 * m) * r);
 
 Theta1_grad /= m;
 Theta2_grad /= m;
