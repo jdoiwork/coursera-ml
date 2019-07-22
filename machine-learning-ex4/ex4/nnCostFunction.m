@@ -127,6 +127,7 @@ Theta2_grad /= m;
 
 
 
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -137,7 +138,19 @@ Theta2_grad /= m;
 
 
 
+reg1 = (lambda / m) * Theta1;
+reg2 = (lambda / m) * Theta2;
 
+% a = size(reg1(:, 1))
+% b = size(zeros(size(reg1, 1), 1))
+
+% input("reg1")
+
+reg1(:, 1) = zeros(size(reg1, 1), 1);
+reg2(:, 1) = zeros(size(reg2, 1), 1);
+
+Theta1_grad += reg1;
+Theta2_grad += reg2;
 
 
 
