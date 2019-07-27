@@ -23,7 +23,15 @@ J = 1 / (2 * m) * sum((X * theta - y) .^ 2) + ...
     lambda / (2 * m) * sum(theta(2, end) .^ 2);
 %input("y");
 
+lambdas = ones(size(theta));
+lambdas(1) = 0;
 
+% lambdas
+% lambdas ./ m .* theta
+% input("lambdas")
+
+grad = 1 / m * X' * (X * theta - y) + ...
+  lambdas ./ m .* theta;
 
 
 
