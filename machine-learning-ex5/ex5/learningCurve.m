@@ -28,6 +28,7 @@ error_val   = zeros(m, 1);
 %               error_val(i) should give you the errors
 %               obtained after training on i examples.
 %
+
 % Note: You should evaluate the training error on the first i training
 %       examples (i.e., X(1:i, :) and y(1:i)).
 %
@@ -53,7 +54,23 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+Xtrain = X;
+ytrain = y;
 
+fixed_lambda = 0;
+
+
+for i = 1:m
+    xt = Xtrain(1:i, :);
+    yt = ytrain(1:i);
+    
+    tt = trainLinearReg(xt, yt, lambda);
+
+    error_train(i) = linearRegCostFunction(xt, yt, tt, fixed_lambda);
+    error_val(i) = linearRegCostFunction(Xval, yval, tt, fixed_lambda);
+
+
+endfor
 
 
 
