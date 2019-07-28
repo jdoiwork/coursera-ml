@@ -15,7 +15,10 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
+vp = 1:p;
 
+X_poly = X .^ vp;
+% input("x_poly")
 
 
 
