@@ -98,7 +98,11 @@ while ~isempty(email_contents)
     %
 
 
-
+    idx = search(vocabList, str);
+    if idx == 0
+    else
+        word_indices = [word_indices ; idx];
+    end
 
 
 
