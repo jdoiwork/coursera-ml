@@ -23,7 +23,24 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+steps = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]
 
+pErr = 100;
+
+for tempC = steps
+  for tempSigma = steps
+    kernel = @(x1, x2) gaussianKernel(x1, x2, tempSigma);
+
+    model = svmTrain(X, y, tempC, kernel);
+    predictions = svmPredict(model, Xval);
+    tempErr = mean(double(predictions ~= yval));
+    if tempErr < pErr
+      pErr = tempErr;
+      C = tempC;
+      sigma = tempSigma;
+    end
+  endfor
+endfor
 
 
 
