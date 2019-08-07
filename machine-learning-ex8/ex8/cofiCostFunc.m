@@ -54,8 +54,8 @@ J = (1/2) * sum(sum(M .^ 2)) + ...
 % s_Xg = size(X_grad)
 % input("grad");
 
-Theta_grad = M' * X;
-X_grad = M * Theta;
+X_grad = M * Theta + lambda * X;
+Theta_grad = M' * X + lambda * Theta;
 
 
 
