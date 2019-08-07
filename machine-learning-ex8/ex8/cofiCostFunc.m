@@ -40,12 +40,19 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+M = (X * Theta' - Y) .* R;
 
-J = (1/2) * sum(sum(((X * Theta' - Y) .* R) .^ 2));
+J = (1/2) * sum(sum(M .^ 2));
 
+% s_M = size(M)
+% s_T = size(Theta)
+% s_X = size(X)
+% s_Tg = size(Theta_grad)
+% s_Xg = size(X_grad)
+% input("grad");
 
-
-
+Theta_grad = M' * X;
+X_grad = M * Theta;
 
 
 
